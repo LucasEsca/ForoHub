@@ -68,4 +68,13 @@ public class TopicService {
     public List<Topic> getTopicsByCourseIdAndDateRange(Integer courseId, LocalDateTime start, LocalDateTime end) {
         return topicRepository.findByCourseIdAndCreationDateBetween(courseId, start, end);
     }
+    
+    public boolean deleteTopic(Long id) {
+        Optional<Topic> existingTopic = getTopicById(id);
+        if (existingTopic.isPresent()) {
+            topicRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
