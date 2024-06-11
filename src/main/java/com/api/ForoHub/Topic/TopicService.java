@@ -1,6 +1,7 @@
 package com.api.ForoHub.Topic;
 
 
+import com.api.ForoHub.exception.DuplicateTopicException;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,10 @@ public class TopicService {
     private TopicRepository topicRepository;
 
     public Topic createTopic(TopicDTO topicDto) {
+        if (topicRepository.existsByTitleAndMessage(topicDto.title(), topicDto.message())) {
+            throw new DuplicateTopicException("Un tópico con el mismo título y mensaje ya existe.");
+        }
+
         Topic topic = new Topic();
         topic.setTitle(topicDto.title());
         topic.setMessage(topicDto.message());

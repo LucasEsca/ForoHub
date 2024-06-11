@@ -1,6 +1,7 @@
 package com.api.ForoHub.Topic;
 
 
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class TopicController {
     private TopicService topicService;
 
     @PostMapping
-    public ResponseEntity<Topic> createTopic(@RequestBody TopicDTO topicDTO) {
+    public ResponseEntity<Topic> createTopic(@RequestBody @Valid TopicDTO topicDTO) {
         Topic createdTopic = topicService.createTopic(topicDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTopic);
     }
