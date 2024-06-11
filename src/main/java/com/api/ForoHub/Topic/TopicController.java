@@ -1,10 +1,11 @@
 package com.api.ForoHub.Topic;
 
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
+
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +19,14 @@ public class TopicController {
     private TopicService topicService;
 
     @PostMapping
-    @Transactional
-    public ResponseEntity<Topic> createTopic(@RequestBody @Valid TopicDTO topicDto) {
-        Topic topic = topicService.createTopic(topicDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(topic);
+    public ResponseEntity<Topic> createTopic(@RequestBody TopicDTO topicDTO) {
+        Topic createdTopic = topicService.createTopic(topicDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdTopic);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Topic>> getAllTopics() {
+        List<Topic> topics = topicService.getAllTopics();
+        return ResponseEntity.ok(topics);
     }
 }

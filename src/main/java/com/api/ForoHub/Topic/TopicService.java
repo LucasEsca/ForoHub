@@ -2,6 +2,7 @@ package com.api.ForoHub.Topic;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,9 @@ public class TopicService {
         topic.setAuthorId(topicDto.authorId());
         topic.setCourseId(topicDto.courseId());
         return topicRepository.save(topic);
+    }
+
+    public List<Topic> getAllTopics() {
+        return topicRepository.findAll();
     }
 }
