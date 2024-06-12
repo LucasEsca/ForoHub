@@ -1,7 +1,7 @@
 package com.api.ForoHub.Topic;
 
 
-import com.api.ForoHub.exception.DuplicateTopicException;
+import com.api.ForoHub.infra.exception.DuplicateTopicException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

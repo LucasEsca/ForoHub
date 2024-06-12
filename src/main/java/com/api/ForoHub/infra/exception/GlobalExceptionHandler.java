@@ -1,4 +1,4 @@
-package com.api.ForoHub.exception;
+package com.api.ForoHub.infra.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.api.ForoHub.exception;
+package com.api.ForoHub.infra.exception;
 
 
 public class DuplicateTopicException extends RuntimeException {

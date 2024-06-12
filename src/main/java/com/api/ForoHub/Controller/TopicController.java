@@ -1,6 +1,10 @@
-package com.api.ForoHub.Topic;
+package com.api.ForoHub.Controller;
 
 
+import com.api.ForoHub.Topic.Topic;
+import com.api.ForoHub.Topic.TopicDTO;
+import com.api.ForoHub.Topic.TopicService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/topics")
+@SecurityRequirement(name = "bearer-key")
 public class TopicController {
 
     @Autowired
