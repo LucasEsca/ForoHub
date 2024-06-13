@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>ForoHub API</h1>
-    <p>ForoHub API es una aplicación que proporciona funcionalidades para la gestión de tópicos en un foro en línea. Permite a los usuarios crear, leer, actualizar y eliminar tópicos, así como también proporciona funciones adicionales como la búsqueda y paginación.</p>
+    <p>ForoHub API es una aplicación que permite la gestión de tópicos en un foro en línea. Los usuarios pueden crear, leer, actualizar y eliminar tópicos, así como realizar búsquedas y paginación de los mismos.</p>
     <h2>Tecnologías Utilizadas</h2>
     <ul>
         <li>Java 11</li>
@@ -15,7 +15,9 @@
         <li>Spring Web</li>
         <li>Lombok</li>
         <li>Jakarta Persistence API</li>
-        <li>H2 Database (para desarrollo)</li>
+        <li>MySQL</li>
+        <li>Spring Security</li>
+        <li>JWT (JSON Web Tokens)</li>
     </ul>
     <h2>Configuración</h2>
     <ol>
@@ -23,30 +25,49 @@
     </ol>
     <pre><code>git clone https://github.com/tu-usuario/forohub-api.git</code></pre>
     <ol start="2">
-        <li>Importa el proyecto en tu IDE preferido (Eclipse, IntelliJ, etc.).</li>
-        <li>Asegúrate de tener Java 11 y Maven instalados en tu sistema.</li>
+        <li>Importa el proyecto en tu IDE preferido (NetBeans, IntelliJ, etc.).</li>
+        <li>Asegúrate de tener Java 17 y Maven instalados en tu sistema.</li>
         <li>Configura las credenciales de la base de datos en el archivo <code>application.properties</code>:</li>
     </ol>
-    <pre><code>spring.datasource.url=jdbc:mysql://localhost:3306/forohub
-spring.datasource.username=usuario
-spring.datasource.password=contraseña</code></pre>
     <h2>Ejecución</h2>
     <ol>
         <li>Desde tu IDE, ejecuta la clase principal <code>ForoHubApplication</code>.</li>
         <li>La aplicación se iniciará en el puerto 8080 por defecto.</li>
     </ol>
-    <h2>Uso</h2>
-    <p>La API ofrece los siguientes endpoints:</p>
+    <h2>Seguridad</h2>
+    <p>La aplicación utiliza <strong>Spring Security</strong> para la autenticación y autorización, y <strong>JWT</strong> para la gestión de sesiones.</p>
+    <h3>Proceso de Autenticación y Autorización</h3>
     <ul>
-        <li><code>POST /topics</code>: Crea un nuevo tópico.</li>
-        <li><code>GET /topics</code>: Obtiene todos los tópicos.</li>
-        <li><code>GET /topics/top10</code>: Obtiene los 10 tópicos más recientes.</li>
-        <li><code>GET /topics/search?courseName={nombre}&amp;year={año}</code>: Busca tópicos por nombre de curso y año.</li>
-        <li><code>GET /topics/paginated</code>: Obtiene tópicos paginados.</li>
-        <li><code>GET /topics/{id}</code>: Obtiene los detalles de un tópico por su ID.</li>
-        <li><code>PUT /topics/{id}</code>: Actualiza los datos de un tópico existente por su ID.</li>
-        <li><code>DELETE /topics/{id}</code>: Elimina un tópico por su ID.</li>
+        <li><strong>Generación de Tokens JWT:</strong> Se genera un token JWT al autenticar a un usuario.</li>
+        <li><strong>Validación de Tokens JWT:</strong> Los tokens JWT se validan para proteger los endpoints de la API.</li>
     </ul>
+    <h3>Puntos Clave de la Configuración</h3>
+    <ul>
+        <li><strong>Autenticación:</strong> Se maneja a través de un controlador de autenticación que verifica las credenciales del usuario y genera un token JWT.</li>
+        <li><strong>Filtros de Seguridad:</strong> Se configuran filtros para interceptar solicitudes HTTP y validar los tokens JWT.</li>
+    </ul>
+    <h2>Rutas de la API</h2>
+    <ul>
+        <li><strong>Autenticación:</strong>
+            <ul>
+                <li><code>POST /login</code>: Autentica a un usuario y devuelve un token JWT.</li>
+            </ul>
+        </li>
+        <li><strong>Gestión de Tópicos:</strong>
+            <ul>
+                <li><code>POST /topics</code>: Crea un nuevo tópico.</li>
+                <li><code>GET /topics</code>: Obtiene todos los tópicos.</li>
+                <li><code>GET /topics/top10</code>: Obtiene los 10 tópicos más recientes.</li>
+                <li><code>GET /topics/search?courseName={nombre}&amp;year={año}</code>: Busca tópicos por nombre de curso y año.</li>
+                <li><code>GET /topics/paginated</code>: Obtiene tópicos paginados.</li>
+                <li><code>GET /topics/{id}</code>: Obtiene los detalles de un tópico por su ID.</li>
+                <li><code>PUT /topics/{id}</code>: Actualiza los datos de un tópico existente por su ID.</li>
+                <li><code>DELETE /topics/{id}</code>: Elimina un tópico por su ID.</li>
+            </ul>
+        </li>
+    </ul>
+    <h3>Ejemplo de Uso de Autenticación</h3>
+    <p>Para autenticar a un usuario y obtener un token JWT, se debe realizar una solicitud POST a <code>/login</code> con las credenciales del usuario. Para acceder a un endpoint protegido, se debe incluir el token JWT en el encabezado de la solicitud.</p>
     <h2>Contribuciones</h2>
     <p>Las contribuciones son bienvenidas. Si deseas contribuir a este proyecto, por favor sigue estos pasos:</p>
     <ol>
